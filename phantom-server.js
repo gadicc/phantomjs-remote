@@ -73,23 +73,25 @@ function receiveData(socket, data) {
 	    // work around this with a bash heredoc. (We previous used a "cat |"
 	    // instead, but that meant we couldn't use exec and had to manage several
 	    // processes.)
-	    child_process.execFile(
-	      '/bin/bash',
-	      ['-c',
-	       ("exec phantomjs --load-images=" + options['load-images']
-	       	+ " /dev/stdin << _EOF_\n" +
-	        script + "\n_EOF_\n")],
+
+		var execLine = 'exec phantomjs';
+		if (options['load-images'])
+			execLine += " --load-images=" + options['load-images'];
+		execLine += ' /dev/stdin << _EOF_\n' + script + '\n_EOF_\n';
+
+	    child_process.execFile('/bin/bash', ['-c', (execLine)],
 	      {timeout: REQUEST_TIMEOUT},
 	      function (error, stdout, stderr) {
 	        if (!error) {
-	        	socket.end(stdout);
+	        	if (socket)
+	        		socket.end(stdout);
 	        } else {
 				if (error && error.code === 127) {
 					socket.end("ERROR: phantomjs not installed. Download and install from http://phantomjs.org/");
-					console.log("phantomjs-remote: phantomjs not installed. Download and install from http://phantomjs.org/");
+					console.log("phantomjs not installed. Download and install from http://phantomjs.org/");
 				} else {
-					socket.end("ERROR: phantomjs failed:", error, "\nstderr:", stderr);
-					console.log("phantomjs-remote: phantomjs failed:", error, "\nstderr:", stderr);
+					socket.end("ERROR: phantomjs failed: " +  error + "\nstderr:" + stderr);
+					console.log("phantomjs failed:", error, "\nstderr:", stderr);
 				}
 	        }
 	      }
