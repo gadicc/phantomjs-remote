@@ -9,7 +9,7 @@ This is my first node.js script, go easy on me :)
 ## Usage
 
 ```js
-var phantomjs_remote = require('phantomjs_remote');
+var phantomjs_remote = require('phantomjs-remote');
 phantomjs_remote.send(phantomJsScript, callback, [options], [host], [port]).
 ```
 

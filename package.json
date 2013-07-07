@@ -1,6 +1,6 @@
 {
   "name": "phantomjs-remote",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Run PhantomJS scripts on a remote server",
   "main": "phantom-client.js",
   "scripts": {
