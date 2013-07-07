@@ -9,8 +9,8 @@ This is my first node.js script, go easy on me :)
 ## Usage
 
 ```js
-require('phantomjs_remote');
-phantomjs_remote(phantomJsScript, callback, [options], [host], [port]).
+var phantomjs_remote = require('phantomjs_remote');
+phantomjs_remote.send(phantomJsScript, callback, [options], [host], [port]).
 ```
 
 *options* is an optional JSON dictionary with any required options, for now only *load-images* is supported, e.g. { 'load-images': 'no' }.
