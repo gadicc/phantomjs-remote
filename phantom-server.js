@@ -83,7 +83,7 @@ function receiveData(socket, data) {
 	      {timeout: REQUEST_TIMEOUT},
 	      function (error, stdout, stderr) {
 	        if (!error) {
-	        	if (socket)
+	        	if (sockets.indexOf(socket) != -1)
 	        		socket.end(stdout);
 	        } else {
 				if (error && error.code === 127) {

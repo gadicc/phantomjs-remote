@@ -2,7 +2,7 @@ var net = require('net');
 
 var socket = new net.Socket();
 var callback;
-var buffer = '';
+var buffer;
 
 exports.send = function(script, _callback, options, host, port) {
     if (!(host && port)) {
@@ -14,6 +14,7 @@ exports.send = function(script, _callback, options, host, port) {
             port = host[1]; host = host[0];
         }
     }
+    buffer = '';
     callback = _callback;
     socket.connect(port, host, function() {
 //        console.log('Connected to ' + host + ':' + port);
