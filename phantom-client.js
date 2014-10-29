@@ -29,8 +29,10 @@ socket.on('data', function(data) {
 });
 
 socket.on('error', function(exception){
-    if (callback)
+    if (callback) {
         callback(exception);
+        callback = null;  // Avoid repeat call on close
+    }
     // console.log(exception);
 });
 
@@ -40,8 +42,10 @@ socket.on('drain', function() {
 });
 
 socket.on('timeout', function() {
-    if (callback)
+    if (callback) {
         callback('timeout');
+        callback = null;  // Avoid repeat call on close
+    }
     // console.log("timeout!");
 });
 

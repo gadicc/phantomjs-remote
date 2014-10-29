@@ -109,7 +109,8 @@ function closeSocket(socket) {
 }
 
 function newSocket(socket) {
-//	console.log('[' + new Date().toLocaleString() + '] New connection');
+	console.log('[' + new Date().toLocaleString() + '] New connection from '
+		+ socket.remoteAddress);
 	sockets.push(socket);
 	buffers[sockets.indexOf(socket)] = '';
 	socket.on('data', function(data) {
